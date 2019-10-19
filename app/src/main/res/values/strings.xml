@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Galgeleg</string>
     <string name="synligtOrd">tæst</string>
-    <string name="gætBogstav">t</string>
-
+    <string name="gætBogstav"></string>
 </resources>
