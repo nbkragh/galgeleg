@@ -3,9 +3,11 @@ package com.opgaver.galgeleg;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -16,6 +18,10 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener, DifficultyDialog.difficultyDialogListener {
@@ -27,11 +33,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     Button seAlleOrdeneKnap;
     TextView gameoverText;
     static SpilType spiltype = SpilType.HARDCODED;
+    SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
         setContentView(R.layout.activity_game);
 
         galgeView = findViewById(R.id.imageView);
@@ -56,7 +64,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 //action når når man trykker OK/Done
-                System.out.println("onEditorAction");
 
                 gæt(v.getText().toString());
 
@@ -64,7 +71,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 //imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
                 //return false får soft-keyboardet til at lukke når man trykker OK/Done
-                return false;
+                return true;
             }
         });
         anvendSpilType();
@@ -108,6 +115,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 gameoverText.setText("Game Won");
 
             }
+        }else {
+            inputText.setText("");
         }
     }
 
@@ -194,26 +203,40 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     @SuppressLint("StaticFieldLeak")
     private void hentOrdfraDR() {
-        new AsyncTask<Void, Void, ArrayList<String>>() {
-            @Override
-            protected ArrayList<String> doInBackground(Void... voids) {
-                try {
-                    galgelogik.hentOrdFraDr();
-                    return galgelogik.muligeOrd;
-                } catch (Exception e) {
-                    System.out.println(e.getClass() + ": " + e.getMessage());
+        final Gson gson = new Gson();
+        Type type = new TypeToken<ArrayList<String>>(){}.getType();
+        ArrayList<String> gemtOrdListe = gson.fromJson(prefs.getString("saved_from_DR", null), type);
+        System.out.println("---------------->gemtOrdListe: "+gemtOrdListe);
+        if(gemtOrdListe == null) {
+
+            new AsyncTask<Void, Void, ArrayList<String>>() {
+                @Override
+                protected ArrayList<String> doInBackground(Void... voids) {
+                    try {
+                        galgelogik.hentOrdFraDr();
+                        String json = gson.toJson(galgelogik.muligeOrd);
+                        prefs.edit().putString("saved_from_DR",json).commit();
+                        return galgelogik.muligeOrd;
+                    } catch (Exception e) {
+                        System.out.println(e.getClass() + ": " + e.getMessage());
+                    }
+                    return null;
                 }
-                return null;
-            }
 
-            @Override
-            protected void onPostExecute(ArrayList<String> strings) {
-                System.out.println("--------------->:" + strings);
-                activeSeAlleOrdeneKnap(true);
-                synligtOrdView.setText(galgelogik.getSynligtOrd());
+                @Override
+                protected void onPostExecute(ArrayList<String> strings) {
+                    System.out.println("--------------->:" + strings);
+                    activeSeAlleOrdeneKnap(true);
+                    synligtOrdView.setText(galgelogik.getSynligtOrd());
 
-            }
-        }.execute();
+                }
+            }.execute();
+        }else{
+            galgelogik.muligeOrd.addAll(gemtOrdListe);
+            galgelogik.nulstil();
+            activeSeAlleOrdeneKnap(true);
+            synligtOrdView.setText(galgelogik.getSynligtOrd());
+        }
     }
 
     @Override
