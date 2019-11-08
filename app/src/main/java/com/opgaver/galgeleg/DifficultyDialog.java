@@ -13,8 +13,8 @@ import java.util.Arrays;
 
 public class DifficultyDialog extends DialogFragment {
     public interface difficultyDialogListener {
-        public void onDialogPositiveClick(Integer[] in);
-        public void onDialogNegativeClick();
+        void onDialogPositiveClick(Integer[] in);
+        void onDialogNegativeClick();
     }
     difficultyDialogListener listener;
 

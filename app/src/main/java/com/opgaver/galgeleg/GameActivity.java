@@ -1,30 +1,39 @@
 
 package com.opgaver.galgeleg;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.text.TextUtils;
-import android.view.KeyEvent;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+public class GameActivity extends AppCompatActivity {
+    final static GalgeLogik galgelogik = SingletonGalgeLogik.getInstance();
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
+    SharedPreferences prefs;
 
-public class GameActivity extends AppCompatActivity implements View.OnClickListener, DifficultyDialog.difficultyDialogListener {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_game);
+
+        GameFragment gameFragment = new GameFragment();
+
+
+        //gameFragment.setArguments(getIntent().getExtras());
+
+
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, gameFragment).commit();
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        galgelogik.nulstil();
+    }
+}
+/*
+* public class GameActivity extends AppCompatActivity implements View.OnClickListener, DifficultyDialog.difficultyDialogListener {
     final static GalgeLogik galgelogik = SingletonGalgeLogik.getInstance();
 
     ImageView galgeView;
@@ -267,3 +276,5 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 }
+
+* */

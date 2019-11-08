@@ -8,7 +8,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener{
-    Button button1, button2, button3;
+    Button button1, button2;
     final static GalgeLogik galgelogik = SingletonGalgeLogik.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,28 +17,30 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
         button1 = findViewById(R.id.button1);
         button2 = findViewById(R.id.button2);
-        button3 = findViewById(R.id.button3);
 
         button1.setOnClickListener(this);
         button2.setOnClickListener(this);
-        button3.setOnClickListener(this);
 
     }
 
     public void onClick(View v) {
-        Intent i = new Intent(this, GameActivity.class);
+        Intent i;
         switch (v.getId()) {
             case R.id.button1:
-                i.putExtra("spiltype", GameActivity.SpilType.HARDCODED);
+                i = new Intent(this, GameActivity.class);
+                startActivity(i);
                 break;
             case R.id.button2:
-                i.putExtra("spiltype", GameActivity.SpilType.DR);
-                break;
-            case R.id.button3:
-                i.putExtra("spiltype", GameActivity.SpilType.SPREADSHEET);
+                i = new Intent(this, HighscoreActivity.class);
+                startActivity(i);
                 break;
             default:
         }
-        startActivity(i);
+
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 }
