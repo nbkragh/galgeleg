@@ -25,7 +25,7 @@ import androidx.fragment.app.Fragment;
 public class GameFragment extends Fragment implements View.OnClickListener {
     static GalgeLogik galgelogik;
     ImageView galgeView;
-    TextView synligtOrdView;
+    TextView synligtOrdView, gameoverTextView;
     EditText inputText;
     Button gameoverButton;
     public GameFragment() {
@@ -65,7 +65,7 @@ public class GameFragment extends Fragment implements View.OnClickListener {
                 return true;
             }
         });
-
+        gameoverTextView = view.findViewById(R.id.textGameover);
         synligtOrdView = view.findViewById(R.id.synligtOrdView);
         synligtOrdView.setText(galgelogik.getSynligtOrd());
         return view ;
@@ -86,7 +86,6 @@ public class GameFragment extends Fragment implements View.OnClickListener {
 /*        ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).toggleSoftInput(
                 InputMethodManager.HIDE_NOT_ALWAYS,
                 InputMethodManager.HIDE_NOT_ALWAYS);*/
-
         ((InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(inputText.getWindowToken(),0);
 
     }
@@ -99,19 +98,10 @@ public class GameFragment extends Fragment implements View.OnClickListener {
 
         if (galgelogik.erSpilletSlut()) {
             inputText.setFocusable(false);
+            inputText.setVisibility(View.GONE);
             gameoverButton.setVisibility(View.VISIBLE);
-/*            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+            gameoverTextView.setVisibility(View.VISIBLE);
 
-                ft.replace(R.id.fragment_container, details);
-
-            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-            ft.commit();*/
-
-
-            if (galgelogik.erSpilletTabt()) {
-            } else {
-
-            }
         }else {
             inputText.setText("");
         }

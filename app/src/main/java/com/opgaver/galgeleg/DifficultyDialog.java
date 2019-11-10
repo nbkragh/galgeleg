@@ -12,19 +12,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class DifficultyDialog extends DialogFragment {
-    public interface difficultyDialogListener {
+    public interface DifficultyDialogListener {
         void onDialogPositiveClick(Integer[] in);
         void onDialogNegativeClick();
     }
-    difficultyDialogListener listener;
+    DifficultyDialogListener listener;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         try {
-            listener = (difficultyDialogListener) context;
+            listener = (DifficultyDialogListener) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement difficultyDialogListener");
+            throw new ClassCastException(context.toString() + " must implement DifficultyDialogListener");
         }
     }
 

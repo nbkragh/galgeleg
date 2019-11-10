@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Random;
+
 public class ResultActivity extends AppCompatActivity implements View.OnClickListener, HighscoreDialog.highscoreDialoglistener {
     static GalgeLogik galgelogik;
     TextView textResult;
@@ -33,6 +35,8 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
 
         backbutton = findViewById(R.id.buttonDone);
         backbutton.setOnClickListener(this);
+
+        score = someAdvancedAndVeryFairScoreCalculation(textInfo.length(), getIntent().getIntExtra("forsog", 1000) );
     }
 
     @Override
@@ -47,14 +51,24 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
-    public void onDialogDone() {
-        Intent i = new Intent(this, MenuActivity.class);
-        startActivity(i);
+    public void onDialogDone(Boolean namentered) {
+        Intent i;
+        if (namentered) {
+            i = new Intent(this, HighscoreActivity.class);
+            startActivity(i);
+        }else{
+            i = new Intent(this, MenuActivity.class);
+            startActivity(i);
+        }
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        onDialogDone();
+        onDialogDone(false);
+    }
+
+    private int someAdvancedAndVeryFairScoreCalculation(int wordlength, int antalforsog){
+        return new Random().nextInt(1000);
     }
 }

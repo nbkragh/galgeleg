@@ -1,39 +1,136 @@
 
 package com.opgaver.galgeleg;
 
-import android.content.SharedPreferences;
+import android.annotation.SuppressLint;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity implements DifficultyDialog.DifficultyDialogListener {
     final static GalgeLogik galgelogik = SingletonGalgeLogik.getInstance();
 
-    SharedPreferences prefs;
+    GameFragment gameFragment = new GameFragment();
 
+    ChooseWordSourceFragment CWSfragment = new ChooseWordSourceFragment();
+
+    private AsyncTask asyncTaske;
+    private Thread downloadThread;
+    private boolean activeDownloadFromDR = false;
+    private boolean activeDownloadFromSpreadsheet = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        GameFragment gameFragment = new GameFragment();
+        gameFragment = new GameFragment();
 
-
-        //gameFragment.setArguments(getIntent().getExtras());
-
-
-        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, gameFragment).commit();
+        CWSfragment = new ChooseWordSourceFragment();
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, CWSfragment).commit();
 
     }
+
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         galgelogik.nulstil();
     }
+    @SuppressLint("StaticFieldLeak")
+    @Override
+    public void onDialogPositiveClick(Integer[] in) {
+        activeDownloadFromSpreadsheet = true;
+        asyncTaske = new AsyncTask<Integer, Void, Void>() {
+
+            @Override
+            protected void onPreExecute() {
+                CWSfragment.setButtonText(CWSfragment.button1,"henter...\n cancel ?");
+            }
+            @Override
+            protected Void doInBackground(Integer... numbers) {
+
+                try {
+                    Thread.sleep(2000);
+                    String numbersAsString = TextUtils.join("", numbers);
+                    System.out.println("-------->: " + numbersAsString);
+                    if(!isCancelled()){
+                        galgelogik.hentOrdFraRegneark(numbersAsString);
+                    }
+                } catch (Exception e) {
+                    System.out.println(e.getClass() + ": " + e.getMessage());
+                }
+                return null;
+            }
+            @Override
+            protected void onPostExecute(Void resultat) {
+                activeDownloadFromSpreadsheet = false;
+                CWSfragment.toggleLoadingSpin(false);
+                startGame();
+            }
+
+            @Override
+            protected void onCancelled() {
+                CWSfragment.setButtonText(CWSfragment.button1,"Download fra Spreadsheet");
+                CWSfragment.toggleLoadingSpin(false);
+                activeDownloadFromSpreadsheet = false;
+                asyncTaske = null;
+            }
+
+        }.execute(in);
+    }
+
+
+    @Override
+    public void onDialogNegativeClick() {
+
+    }
+
+    public void getWordsFromDR(){
+        activeDownloadFromDR = true;
+        CWSfragment.setButtonText(CWSfragment.button0,"henter...\n cancel ?");
+        Runnable r = new Runnable() {
+            public void run() {
+
+                try {
+                    Thread.sleep(2000);
+                    galgelogik.hentOrdFraDr();
+
+                    startGame();
+                } catch (Exception e) {
+                    System.out.println(e.getClass() + ": " + e.getMessage());
+                }
+            }
+        };
+        downloadThread = new Thread(r);
+        downloadThread.start();
+
+    }
+
+    public void cancelSpreadsheetDownload(){
+        asyncTaske.cancel(true);
+    }
+
+    public void cancelDRDownload(){
+        downloadThread.interrupt();
+        downloadThread = null;
+        galgelogik.nulstil();
+        CWSfragment.setButtonText(CWSfragment.button1,"Download fra Spreadsheet");
+        activeDownloadFromDR = false;
+    }
+
+    public boolean isActiveDownloadFromDR() {
+        return activeDownloadFromDR;
+    }
+    public boolean isActiveDownloadFromSpreadsheet() {
+        return activeDownloadFromSpreadsheet;
+    }
+    public void startGame(){
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, gameFragment).commit();
+    }
 }
 /*
-* public class GameActivity extends AppCompatActivity implements View.OnClickListener, DifficultyDialog.difficultyDialogListener {
+* public class GameActivity extends AppCompatActivity implements View.OnClickListener, DifficultyDialog.DifficultyDialogListener {
     final static GalgeLogik galgelogik = SingletonGalgeLogik.getInstance();
 
     ImageView galgeView;

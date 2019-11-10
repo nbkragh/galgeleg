@@ -56,7 +56,7 @@ public class HighscoreDialog extends DialogFragment {
             @Override
             public void onClick(DialogInterface dialog, int id) {
                 if(input.getText().length() > 0){
-                    SharedPreferences prefs = getActivity().getPreferences(Context.MODE_PRIVATE);
+                    SharedPreferences prefs = getActivity().getSharedPreferences("galgeleg_records", Context.MODE_PRIVATE);
                     Gson gson = new Gson();
 
                     String json = prefs.getString("highscore", gson.toJson(new HashMap<String,Integer>()));
@@ -66,15 +66,18 @@ public class HighscoreDialog extends DialogFragment {
 
                     json = gson.toJson(highscoreMap);
                     prefs.edit().putString("highscore", json).apply();
-                    System.out.println("------------------->saved: "+prefs.getString("highscore", "{}"));
-                    listener.onDialogDone();
+                    System.out.println("------------------->saved: "+prefs.getString("highscore", gson.toJson(new HashMap<String,Integer>())));
+
+                    listener.onDialogDone(true);
+                }else{
+                    listener.onDialogDone(false);
                 }
             }});
         return builder.create();
     }
 
     public interface highscoreDialoglistener {
-        void onDialogDone();
+        void onDialogDone(Boolean nameentered);
     }
 
 

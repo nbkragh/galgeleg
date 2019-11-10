@@ -34,7 +34,7 @@
             android:layout_height="92dp"
             android:layout_marginBottom="50dp"
             android:text="Spil"
-            android:textSize="30sp" />
+            android:textSize="24dp" />
 
         <Button
             android:id="@+id/button2"
@@ -43,7 +43,7 @@
             android:layout_marginStart="1dp"
             android:layout_marginBottom="36dp"
             android:text="Highscore"
-            android:textSize="30sp" />
+            android:textSize="24dp" />
 
     </LinearLayout>
 </FrameLayout>

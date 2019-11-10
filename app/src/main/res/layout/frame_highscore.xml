@@ -4,16 +4,18 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textHighscoreName"
-        android:layout_width="wrap_content"
+        android:id="@+id/text1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4pt"
+        android:layout_marginBottom="4pt"
         android:layout_weight="1"
-        android:text="TextView" />
+        android:paddingTop="2pt"
+        android:paddingEnd="2pt"
+        android:shadowColor="#00571B0C"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textSize="24sp" />
 
-    <TextView
-        android:id="@+id/textHighscoreScore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="TextView" />
 </LinearLayout>

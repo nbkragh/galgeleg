@@ -6,6 +6,14 @@
     tools:context=".HighscoreActivity"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/highscoreTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="HIGHSCORE"
+        android:textSize="36sp" />
+
     <ListView
         android:id="@+id/highscoreList"
         android:layout_width="match_parent"
