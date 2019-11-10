@@ -22,7 +22,7 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_result);
 
         galgelogik = SingletonGalgeLogik.getInstance();
-
+        galgelogik.nulstil();
         textResult = findViewById(R.id.textGameResult);
         textInfo = findViewById(R.id.textInfo);
         if(getIntent().getBooleanExtra("result", true)){

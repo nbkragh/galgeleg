@@ -34,8 +34,8 @@ public class GameActivity extends AppCompatActivity implements DifficultyDialog.
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         galgelogik.nulstil();
+        super.onBackPressed();
     }
     @SuppressLint("StaticFieldLeak")
     @Override
@@ -46,6 +46,7 @@ public class GameActivity extends AppCompatActivity implements DifficultyDialog.
             @Override
             protected void onPreExecute() {
                 CWSfragment.setButtonText(CWSfragment.button1,"henter...\n cancel ?");
+                CWSfragment.toggleLoadingSpin(true);
             }
             @Override
             protected Void doInBackground(Integer... numbers) {
@@ -89,6 +90,7 @@ public class GameActivity extends AppCompatActivity implements DifficultyDialog.
     public void getWordsFromDR(){
         activeDownloadFromDR = true;
         CWSfragment.setButtonText(CWSfragment.button0,"henter...\n cancel ?");
+        CWSfragment.toggleLoadingSpin(true);
         Runnable r = new Runnable() {
             public void run() {
 
@@ -115,7 +117,8 @@ public class GameActivity extends AppCompatActivity implements DifficultyDialog.
         downloadThread.interrupt();
         downloadThread = null;
         galgelogik.nulstil();
-        CWSfragment.setButtonText(CWSfragment.button1,"Download fra Spreadsheet");
+        CWSfragment.setButtonText(CWSfragment.button0,"Download fra DR");
+        CWSfragment.toggleLoadingSpin(false);
         activeDownloadFromDR = false;
     }
 

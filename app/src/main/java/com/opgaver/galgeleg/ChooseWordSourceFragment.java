@@ -42,7 +42,7 @@ public class ChooseWordSourceFragment extends Fragment implements View.OnClickLi
 
     @Override
     public void onClick(View view) {
-        toggleLoadingSpin(true);
+
         switch (view.getId()) {
 
             case R.id.button0:
@@ -76,16 +76,5 @@ public class ChooseWordSourceFragment extends Fragment implements View.OnClickLi
             loading.setVisibility(View.GONE);
         }
     }
-/*    private void togglebuttons(boolean on) {
-        if (on) {
-            button0.setClickable(true);
-            button1.setClickable(true);
-            button2.setClickable(true);
-        } else {
-            //button0.setClickable(false);
-            //button1.setClickable(false);
-            button2.setClickable(false);
-        }
-    }*/
 
 }
