@@ -68,6 +68,7 @@ public class GameFragment extends Fragment implements View.OnClickListener {
         gameoverTextView = view.findViewById(R.id.textGameover);
         synligtOrdView = view.findViewById(R.id.synligtOrdView);
         synligtOrdView.setText(galgelogik.getSynligtOrd());
+        System.out.println("---->: "+galgelogik.getOrdet());
         return view ;
     }
 
