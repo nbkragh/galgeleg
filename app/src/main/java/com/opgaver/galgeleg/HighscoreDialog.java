@@ -60,13 +60,16 @@ public class HighscoreDialog extends DialogFragment {
                     Gson gson = new Gson();
 
                     String json = prefs.getString("highscore", gson.toJson(new HashMap<String,Integer>()));
-                    Map<String,Integer> highscoreMap = gson.fromJson(json, new TypeToken<Map<String,Integer>>(){}.getType());
-                    highscoreMap.put(input.getText().toString(), score);
+                    Map<String,Integer> highscoreMap = gson.fromJson(json, new TypeToken<HashMap<String,Integer>>(){}.getType());
+
+                    highscoreMap.put(input.getText().toString(),score);
 
 
                     json = gson.toJson(highscoreMap);
                     prefs.edit().putString("highscore", json).apply();
                     System.out.println("------------------->saved: "+prefs.getString("highscore", gson.toJson(new HashMap<String,Integer>())));
+
+
 
                     listener.onDialogDone(true);
                 }else{
