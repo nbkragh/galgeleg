@@ -11,7 +11,7 @@ import androidx.fragment.app.DialogFragment;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class DifficultyDialog extends DialogFragment {
+public class GameSpreadsheetWordsDifficultyDialog extends DialogFragment {
     public interface DifficultyDialogListener {
         void onDialogPositiveClick(Integer[] in);
         void onDialogNegativeClick();

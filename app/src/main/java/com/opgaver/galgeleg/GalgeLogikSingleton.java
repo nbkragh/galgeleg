@@ -1,9 +1,9 @@
 package com.opgaver.galgeleg;
 
-public class SingletonGalgeLogik {
+public class GalgeLogikSingleton {
     private static final GalgeLogik INSTANCE = new GalgeLogik();
 
-    private SingletonGalgeLogik() {
+    private GalgeLogikSingleton() {
     }
 
     static GalgeLogik getInstance() {

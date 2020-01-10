@@ -2,14 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/ord_tekst"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:lineSpacingExtra="10sp"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:text="TextView"
         android:textAlignment="gravity"
         android:textSize="24sp"
-        android:typeface="monospace" />
+        android:typeface="monospace"
+        android:layout_marginBottom="5dp"/>
 </LinearLayout>

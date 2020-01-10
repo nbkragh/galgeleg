@@ -1,9 +1,5 @@
 <resources>
-    <string name="app_name">s18205 Nicolais Galgeleg</string>
+    <string name="app_name">s185205 Nicolais Galgeleg</string>
     <string name="synligtOrd">tæst</string>
     <string name="gætBogstav"></string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
 </resources>

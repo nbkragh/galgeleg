@@ -3,18 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HighscoreActivity"
-    android:orientation="vertical">
+    android:background="@color/colorBackground"
+    android:orientation="vertical"
+    tools:context=".HighscoreActivity">
 
     <TextView
         android:id="@+id/highscoreTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="14dp"
+        android:background="@color/colorPrimary"
         android:gravity="center_horizontal"
         android:text="HIGHSCORE"
         android:textSize="36sp" />
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/highscoreList"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

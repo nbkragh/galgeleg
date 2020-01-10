@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class HighscoreDialog extends DialogFragment {
+public class GameResultHighscoreDialog extends DialogFragment {
 
     EditText input;
     TextView viewScore;
@@ -33,7 +33,7 @@ public class HighscoreDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        score = ((ResultActivity)getActivity()).score;
+        score = ((GameResultActivity)getActivity()).score;
         viewScore = new TextView(getActivity());
         viewScore.setText(score+" points");
         input = new EditText(getActivity());
@@ -58,7 +58,7 @@ public class HighscoreDialog extends DialogFragment {
                 if(input.getText().length() > 0){
                     SharedPreferences prefs = getActivity().getSharedPreferences("galgeleg_records", Context.MODE_PRIVATE);
                     Gson gson = new Gson();
-
+                    //bruger hashmap som key-value-par data, så når brugeren indtaster et allerede gemt spillernavn så opdateres highscoren for denne
                     String json = prefs.getString("highscore", gson.toJson(new HashMap<String,Integer>()));
                     Map<String,Integer> highscoreMap = gson.fromJson(json, new TypeToken<HashMap<String,Integer>>(){}.getType());
 
@@ -93,4 +93,5 @@ public class HighscoreDialog extends DialogFragment {
             throw new ClassCastException(context.toString() + " must implement highscoreDialogListener");
         }
     }
+
 }

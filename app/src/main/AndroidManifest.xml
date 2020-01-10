@@ -6,13 +6,13 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/nicolais_flotte_launcher_icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/nicolais_flotte_launcher_icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".HighscoreActivity" android:windowSoftInputMode="stateHidden"></activity>
-        <activity android:name=".ResultActivity" />
+        <activity android:name=".GameResultActivity" />
         <activity android:name=".MuligeOrdActivity" />
         <activity
             android:name=".MenuActivity"

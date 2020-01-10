@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener{
     Button button1, button2;
-    final static GalgeLogik galgelogik = SingletonGalgeLogik.getInstance();
+    final static GalgeLogik galgelogik = GalgeLogikSingleton.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

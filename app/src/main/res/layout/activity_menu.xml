@@ -13,7 +13,7 @@
         android:alpha="50"
         android:clickable="false"
         android:scaleType="centerCrop"
-        android:src="@drawable/forkert6"
+
         android:tint="#00D83030" />
 
 
@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerVertical="true"
-        android:background="@drawable/forkert6"
+        android:background="@drawable/galgebackground"
         android:clickable="false"
         android:gravity="center"
         android:orientation="vertical"
@@ -34,7 +34,8 @@
             android:layout_height="92dp"
             android:layout_marginBottom="50dp"
             android:text="Spil"
-            android:textSize="24dp" />
+            android:textSize="24dp"
+            android:background="@color/colorPrimary"/>
 
         <Button
             android:id="@+id/button2"
@@ -43,7 +44,8 @@
             android:layout_marginStart="1dp"
             android:layout_marginBottom="36dp"
             android:text="Highscore"
-            android:textSize="24dp" />
+            android:textSize="24dp"
+            android:background="@color/colorPrimary" />
 
     </LinearLayout>
 </FrameLayout>

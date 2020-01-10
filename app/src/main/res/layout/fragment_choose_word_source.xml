@@ -5,7 +5,8 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ChooseWordSourceFragment">
+    tools:context=".GameChooseWordSourceFragment"
+    android:background="@color/colorBackground">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -13,26 +14,28 @@
         android:id="@+id/textChooseGameTypeTitle"
         android:layout_width="0dp"
         android:layout_height="70dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="242dp"
         android:gravity="center_vertical"
         android:text="Vælg Ordliste:"
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="italic"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.055" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="0dp"
         android:layout_height="70dp"
-        android:layout_marginBottom="590dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textChooseGameTypeTitle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textChooseGameTypeTitle">
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
 
         <Button
             android:id="@+id/button0"
@@ -40,7 +43,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Download fra DR"
-            android:textSize="10dp" />
+            android:textSize="10dp"
+            android:background="@color/colorPrimary"/>
 
         <Button
             android:id="@+id/button1"
@@ -49,7 +53,7 @@
             android:layout_weight="1"
             android:text="Download fra Spreadsheet"
             android:textSize="10dp"
-            />
+            android:background="@color/colorPrimary"/>
 
         <Button
             android:id="@+id/button2"
@@ -57,21 +61,46 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Hardcoded"
-            android:textSize="10dp" />
+            android:textSize="10dp"
+            android:background="@color/colorPrimary"/>
     </LinearLayout>
 
-    <RelativeLayout
-        android:id="@+id/loadingPanel"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        tools:layout_editor_absoluteX="45dp"
-        tools:layout_editor_absoluteY="71dp">
+    <ProgressBar
+        android:id="@+id/spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="364dp"
+        android:indeterminate="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        />
 
-        <ProgressBar
-            android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/readyButtons"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner">
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:indeterminate="true" />
-    </RelativeLayout>
+            android:background="@color/colorPrimary"
+            android:text="START"
+            android:layout_marginBottom="10dp" />
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:text="Choose Word" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

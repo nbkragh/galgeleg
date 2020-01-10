@@ -24,7 +24,7 @@ import com.github.jinatonic.confetti.confetto.Confetto;
 import java.util.List;
 import java.util.Random;
 
-public class ResultActivity extends AppCompatActivity implements View.OnClickListener, HighscoreDialog.highscoreDialoglistener {
+public class GameResultActivity extends AppCompatActivity implements View.OnClickListener, GameResultHighscoreDialog.highscoreDialoglistener {
     static GalgeLogik galgelogik;
     TextView textResult;
     TextView textInfo;
@@ -36,7 +36,7 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
-        galgelogik = SingletonGalgeLogik.getInstance();
+        galgelogik = GalgeLogikSingleton.getInstance();
         galgelogik.nulstil();
         textResult = findViewById(R.id.textGameResult);
         textInfo = findViewById(R.id.textInfo);
@@ -49,7 +49,7 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
                 @Override
                 public void run() {
                     CommonConfetti.rainingConfetti(
-                            (ViewGroup) ((ViewGroup) ResultActivity.this.findViewById(android.R.id.content)).getChildAt(0)
+                            (ViewGroup) ((ViewGroup) GameResultActivity.this.findViewById(android.R.id.content)).getChildAt(0)
                             ,
                             new int[]{Color.BLACK, Color.RED, Color.YELLOW })
                             .infinite();
@@ -71,7 +71,7 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View view) {
         if (view == backbutton){
-            HighscoreDialog hsDialog = new HighscoreDialog();
+            GameResultHighscoreDialog hsDialog = new GameResultHighscoreDialog();
             hsDialog.show(getSupportFragmentManager(), "someTag");
 
             /*           Intent i = new Intent(this, MenuActivity.class);
@@ -102,7 +102,7 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void startØvKonfetti(){
-        final ViewGroup container = (ViewGroup) ((ViewGroup) ResultActivity.this.findViewById(android.R.id.content)).getChildAt(0);
+        final ViewGroup container = (ViewGroup) ((ViewGroup) GameResultActivity.this.findViewById(android.R.id.content)).getChildAt(0);
         final Context context = this;
 
         handler.post(new Runnable() {
